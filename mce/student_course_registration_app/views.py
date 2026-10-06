@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Course, Student
 from .forms import StudentForm, CourseForm
 def index(request):
@@ -25,6 +25,6 @@ def register_course(request):
   form = CourseForm()
  return render(request, 'registration/register_course.html', {'form': form})
 def student_list(request, course_id):
- course = Course.objects.get(id=course_id)
+ course = get_object_or_404(Course, id=course_id)
  students = course.students.all()
  return render(request, 'registration/student_list.html', {'students': students, 'course': course})
